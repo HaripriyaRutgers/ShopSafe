@@ -1,0 +1,24 @@
+{
+  "project": "ShopSafe training target",
+  "warning": "Educational seed data, not a generated Sentinel scan",
+  "findings": [
+    {
+      "id": "SHOP-001", "title": "Fake exposed API credential in public JavaScript",
+      "type": "exposed_secret_pattern", "severity": "high", "status": "potential",
+      "file": "public/app.js", "evidence": "INTERNAL_API_KEY assignment; value is a nonfunctional fixture",
+      "remediation": "Remove the secret-shaped value from publicly delivered JavaScript. Real privileged credentials and calls belong on the backend."
+    },
+    {
+      "id": "SHOP-002", "title": "Cross-account order access", "type": "broken_object_level_authorization",
+      "severity": "high", "status": "verified_in_vulnerable_local_mode", "file": "server.py",
+      "evidence": "GET /api/order?id=1002&viewer=alice returns Bob's fictional order in vulnerable mode",
+      "remediation": "Require server-authenticated identity and enforce ownership before returning an order."
+    },
+    {
+      "id": "SHOP-003", "title": "Content Security Policy header missing", "type": "missing_security_header",
+      "severity": "medium", "status": "verified_in_vulnerable_local_mode", "file": "server.py",
+      "evidence": "Content-Security-Policy absent on root response in vulnerable mode",
+      "remediation": "Set an appropriately restrictive CSP based on app requirements."
+    }
+  ]
+}
